@@ -10,7 +10,6 @@ $action     = null;
 $controller = null;
 
 Helper::dump($_GET);
-
 // @todo define controller
 // @todo define actions (controller methods) with ID or not
 ?>
