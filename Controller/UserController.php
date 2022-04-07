@@ -17,23 +17,19 @@ class UserController extends Controller
             $password = $_POST['password'];
             $model = new User();
             $result = $model->check($username, $password);
-            //Helper::vdump($result);
 
-            if (!$result){
-                $this->login('Falsche Login-Daten!');
-            }
-            else{
-                //Login war erfolgreich
-                // hier wird die $_SESSION selber benannt als assoc. array :
+            if(!$result) {
+                $this->login('Login Daten falsch!');
+            } else {
+                // login war erfolgreich
                 $_SESSION['auth'] = [
-                    'id'    =>  $result['id'],
-                    'username'  =>  $result['username'],
+                    'id' => $result['id'],
+                    'username'  => $result['username'],
                 ];
-                //weiterleiten auf Homepage
+                // weiterleiten auf homepage
                 header('Location: /');
             }
         }
-
     }
 
     public function logout()

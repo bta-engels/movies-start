@@ -10,12 +10,10 @@ class AuthorController extends Controller implements IController
         // @todo: get authors from db (use model)
         $model = new Author;
         $data = $model->all();
-        if ($this->auth)
-        {
+
+        if($this->auth) {
             require_once('Views/author/admin/index.php');
-        }
-        else
-        {
+        } else {
             require_once('Views/author/index.php');
         }
     }
@@ -29,18 +27,15 @@ class AuthorController extends Controller implements IController
 
     public function edit($id = null)
     {
-        // TODO: Implement edit() method.
     }
 
     public function store($id = null)
     {
-        // TODO: Implement store() method.
+        Helper::dump($_POST);
     }
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
     }
-
 
 }

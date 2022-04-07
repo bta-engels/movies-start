@@ -9,11 +9,8 @@
     <?php foreach ($data as $item): ?>
         <tr>
             <td><?php echo $item['id'] ?></td>
-            <td><?php
-                echo "<a href=\"/authors/$item[id]\">";
-                echo $item['firstname'] .' '. $item['lastname']
-                ?>
-            </td>
+            <td><a href="/authors/<?php echo $item['id']?>">
+                    <?php echo $item['firstname'],' ',$item['lastname'] ?></a></td>
         </tr>
     <?php endforeach ?>
 </table>

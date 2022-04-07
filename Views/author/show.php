@@ -1,1 +1,1 @@
-<h3>Autor ID: <?php echo $data['firstname'] . ' ' . $data['lastname'] . ' ' . $id; ?></h3>
+<h3>Autor:  <?php echo $data['firstname'],' ',$data['lastname'],' ',$id?></h3>
