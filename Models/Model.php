@@ -6,7 +6,7 @@ class Model extends MyDB {
     protected $table;
 
     public function all() {
-        $sql = "SELECT * FROM $this->table";
+        $sql = "SELECT * FROM $this->table ORDER BY id DESC";
         return $this->getAll($sql);
     }
 
@@ -16,6 +16,8 @@ class Model extends MyDB {
     }
 
     public function delete(int $id) {
+        $sql = "DELETE FROM $this->table WHERE id= ?";
+        return $this->prepareAndExecute($sql,[$id]);
     }
 
     public function insert(array $params) {

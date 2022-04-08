@@ -2,17 +2,17 @@
 
 require_once('Models/Model.php');
 
-class Author extends Model
+class Movie extends Model
 {
-    protected $table = 'authors';
+    protected $table = 'movies';
 
     public function insert(array $params) {
-        $sql = "INSERT INTO $this->table (firstname, lastname) VALUES (:firstname, :lastname)";
+        $sql = "INSERT INTO $this->table (title) VALUES (:title)";
         return $this->prepareAndExecute($sql, $params);
     }
 
     public function update(array $params, int $id) {
-        $sql = "UPDATE $this->table SET firstname = :firstname, lastname = :lastname WHERE id = :id";
+        $sql = "UPDATE $this->table SET title = :title WHERE id = :id";
         $params['id'] = $id;
         return $this->prepareAndExecute($sql, $params);
     }

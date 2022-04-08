@@ -1,39 +1,39 @@
 <?php
 require_once('Controller/IController.php');
 require_once('Controller/Controller.php');
-require_once('Models/Author.php');
+require_once('Models/Movie.php');
 
-class AuthorController extends Controller implements IController
+class MovieController extends Controller implements IController
 {
     public function index()
     {
         // @todo: get authors from db (use model)
-        $model = new Author;
+        $model = new Movie;
         $data = $model->all();
 
         if ($this->auth) {
-            require_once('Views/author/admin/index.php');
+            require_once('Views/movie/admin/index.php');
         } else {
-            require_once('Views/author/index.php');
+            require_once('Views/movie/index.php');
         }
     }
 
     public function show($id)
     {
-        $model = new Author;
+        $model = new Movie;
         $data = $model->find($id);
-        require_once('Views/author/show.php');
+        require_once('Views/movie/show.php');
     }
 
     public function edit($id = null)
     {
         if ($id > 0)
         {
-            $model = new Author;
+            $model = new Movie;
             $data = $model->find($id);
-            require_once('Views/author/admin/update.php');
+            require_once('Views/movie/admin/update.php');
         } else {
-            require_once('Views/author/admin/create.php');
+            require_once('Views/movie/admin/create.php');
         }
     }
 
@@ -42,13 +42,13 @@ class AuthorController extends Controller implements IController
         if ($_POST)
         {
             //Normalerweise erfolgt hier Validierung
-            $model = new Author;
+            $model = new Movie;
             if ($id > 0){
                 $model->update($_POST, $id);
             } else {
                 $model->insert($_POST);
             }
-            header('Location:/authors');
+            header('Location:/movies');
         }
 
     }
