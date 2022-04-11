@@ -4,6 +4,7 @@ require_once 'inc/MyDB.php';
 class Model extends MyDB {
     
     protected $table;
+    protected $model;
 
     public function all() {
         $sql = "SELECT * FROM $this->table ORDER BY id DESC";
@@ -16,11 +17,14 @@ class Model extends MyDB {
     }
 
     public function delete(int $id) {
+
         $sql = "DELETE FROM $this->table WHERE id= ?";
         return $this->prepareAndExecute($sql,[$id]);
     }
 
     public function insert(array $params) {
+        $sql = "INSERT INTO $this->table () VALUES (:);
+        return $this->prepareAndExecute($sql, $params);
     }
 
     public function update(array $params, int $id) {

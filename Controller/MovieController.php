@@ -55,9 +55,9 @@ class MovieController extends Controller implements IController
 
     public function delete($id)
     {
-        $model = new Author;
+        $model = new Movie;
         $model->delete($id);
-        header('Location:/authors');
+        header('Location:/movies');
 
     }
 
