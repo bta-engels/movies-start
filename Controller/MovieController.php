@@ -1,25 +1,23 @@
 <?php
 require_once('Controller/IController.php');
 require_once('Controller/Controller.php');
-require_once('Models/Movie.php');
 
 class MovieController extends Controller implements IController
 {
-
-    // Refactoring option No 1: Setting $model to string Movie
     protected $model = Movie::class;
+    protected $authors;
 
-    // 2nd option: Add constructor in which a new Movie instance is defined
-    // public function __construct()
-    // {
-    //     parent::__construct();
-    //     $this->model = new Movie;
-    // }
+    public function __construct()
+    {
+        parent::__construct();
+        $model = new Author;
+        $this->authors = $model->all();
+    }
 
     public function index()
     {
-        // @todo: get movies from db (use model)
         $data = $this->model->all();
+
         if ($this->auth) {
             require_once('Views/movie/admin/index.php');
         } else {
@@ -35,8 +33,7 @@ class MovieController extends Controller implements IController
 
     public function edit($id = null)
     {
-        $model = new Author;
-        $authors = $model->all();
+        $authors = $this->authors;
         if ($id > 0) {
             $data = $this->model->find($id);
             require_once('Views/movie/admin/update.php');
@@ -47,21 +44,33 @@ class MovieController extends Controller implements IController
 
     public function store($id = null)
     {
-        // Normalerweise sollte $_POST aus Sicherheitsgründen validiert werden
         if ($_POST) {
-            if ($id > 0) {
-                $this->model->update($_POST, $id);
-            } else {
-                $this->model->insert($_POST);
+            //Normalerweise kommt hier validierung
+            $params = $_POST;
+//            Helper::dump($_FILES);
+            // file upload via PHP $_FILES var
+            if(isset($_FILES['image']) && 0 === $_FILES['image']['error']) {
+                $image  = $_FILES['image']['name'];
+                $source = $_FILES['image']['tmp_name'];
+                $path   = realpath(__DIR__.'/../uploads');
+                $destination = "$path/$image";
+                if(move_uploaded_file($source, $destination)) {
+                    $params['image'] = $image;
+                }
             }
-            header('Location:/movies');
+            if ($id > 0) {
+                $this->model->update($params, $id);
+            } else {
+                $this->model->insert($params);
+            }
+            header('Location: /movies');
         }
+
     }
 
     public function delete($id)
     {
         $this->model->delete($id);
-        header('Location:/movies');
+        header('Location: /movies');
     }
-
 }

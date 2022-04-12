@@ -3,31 +3,38 @@
 <?php if(isset($error)): ?>
     <h3 class="text-danger"><?php echo $error; ?></h3>
 <?php endif; ?>
-
-<form method="post" action="/movies/store">
+<!-- importend: attribute enctype="multipart/form-data" for  file upload -->
+<form method="post" enctype="multipart/form-data" action="/movies/store">
     <div class="form-group row">
-        <label for="title" class="col-md-2 col-form-label">Name des Films</label>
+        <label for="author_id" class="col-md-2 col-form-label">Autor</label>
+        <div class="col-md-10">
+            <select id="author_id" name="author_id" class="form-control col-sm-12 col-md-6 px-1" required>
+                <option value="">Bitte wählen</option>
+                <?php foreach($authors as $item): ?>
+                    <option value="<?php echo $item['id']?>"><?php echo $item['firstname'].' '.$item['lastname'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="title" class="col-md-2 col-form-label">Titel</label>
         <div class="col-md-10">
             <input type="text" id="title" name="title" class="form-control col-sm-12 col-md-6 px-1" required />
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="price" class="col-md-2 col-form-label">Preis</label>
+        <label for="price" class="col-md-2 col-form-label">Preis in €</label>
         <div class="col-md-10">
-            <input type="number" id="price" name="price" class="form-control col-sm-12 col-md-6 px-1" required />
+            <input type="number" min="0" step="0.01" id="price" name="price" class="form-control col-sm-12 col-md-6 px-1" required />
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="author_id" class="col-md-2 col-form-label">Fremdschlüssel (author_id)</label>
+        <label for="image" class="col-md-2 col-form-label">Bild</label>
         <div class="col-md-10">
-            <select name="author_id" id="author_id" class="col-sm-12 col-md-6 px-1" required>
-                <option value="">Bitte wählen</option>
-                <?php foreach ($authors as $author) : ?>
-                        <option value="<?php echo $author['id'] ?>"><?php echo $author['firstname'] . ' ' . $author['lastname']; ?></option>
-                <?php endforeach ?>
-            </select>
+            <input type="file" id="image" name="image" class="form-control-file col-sm-12 col-md-6 px-1" />
         </div>
     </div>
 

@@ -1,22 +1,30 @@
 <?php
-
 require_once('Models/Model.php');
 
 class Movie extends Model
 {
     protected $table = 'movies';
 
-    public function insert(array $params) {
-        $sql = "INSERT INTO $this->table (title, price, author_id)
-        VALUES (:title, :price, :author_id)";
-        return $this->prepareAndExecute($sql, $params);
+    public function all() {
+        $sql = "
+            SELECT 
+                   m.*,
+                   CONCAT(a.firstname, ' ', a.lastname) author 
+            FROM $this->table m
+            JOIN authors a ON a.id = m.author_id
+            ORDER BY m.id DESC";
+        return $this->getAll($sql);
     }
 
-    public function update(array $params, int $id) {
-        $sql = "UPDATE $this->table
-        SET title=:title, price=:price
-        WHERE id=:id";
-        $params['id'] = $id;
-        return $this->prepareAndExecute($sql, $params);
+    public function find(int $id) {
+        $sql = "
+            SELECT 
+                   m.*,
+                   CONCAT(a.firstname, ' ', a.lastname) author 
+            FROM $this->table m
+            JOIN authors a ON a.id = m.author_id
+            WHERE m.id = ?";
+        return $this->getOne($sql,[$id]);
     }
+
 }
