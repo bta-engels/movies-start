@@ -3,23 +3,23 @@ require_once('Controller/IController.php');
 require_once('Controller/Controller.php');
 require_once('Models/Author.php');
 
-class AuthorController extends Controller implements IController
+class AuthorController extends Controller implements IController 
 {
-    //zweite Option, wenn Controller if Statement gesetzt dann
-    //Protected $model = Author::class; //hier wird klasse abgerufen
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->model = new Author;
-    }
+    // Refactoring option No 1: Setting $model to string Author
+    protected $model = Author::class;
+
+    // 2nd option: Add constructor in which a new Author instance is defined
+    // public function __construct()
+    // {
+    //     parent::__construct();
+    //     $this->model = new Author;
+    // }
 
     public function index()
     {
         // @todo: get authors from db (use model)
-        //$model = new Author;
         $data = $this->model->all();
-
         if ($this->auth) {
             require_once('Views/author/admin/index.php');
         } else {
@@ -29,16 +29,13 @@ class AuthorController extends Controller implements IController
 
     public function show($id)
     {
-        //$model = new Author;
         $data = $this->model->find($id);
         require_once('Views/author/show.php');
     }
 
     public function edit($id = null)
     {
-        if ($id > 0)
-        {
-            //$model = new Author;
+        if ($id > 0) {
             $data = $this->model->find($id);
             require_once('Views/author/admin/update.php');
         } else {
@@ -48,26 +45,21 @@ class AuthorController extends Controller implements IController
 
     public function store($id = null)
     {
-        if ($_POST)
-        {
-            //Normalerweise erfolgt hier Validierung
-            //$model = new Author;
-            if ($id > 0){
+        // Normalerweise sollte $_POST aus Sicherheitsgründen validiert werden
+        if ($_POST) {
+            if ($id > 0) {
                 $this->model->update($_POST, $id);
             } else {
                 $this->model->insert($_POST);
             }
             header('Location:/authors');
         }
-
     }
 
     public function delete($id)
     {
-        //$model = new Author;
         $this->model->delete($id);
         header('Location:/authors');
-
     }
 
 }

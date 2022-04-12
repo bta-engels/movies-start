@@ -6,7 +6,7 @@
 
 <form method="post" action="/movies/store">
     <div class="form-group row">
-        <label for="title" class="col-md-2 col-form-label">Filmtitel</label>
+        <label for="title" class="col-md-2 col-form-label">Name des Films</label>
         <div class="col-md-10">
             <input type="text" id="title" name="title" class="form-control col-sm-12 col-md-6 px-1" required />
         </div>
@@ -15,14 +15,19 @@
     <div class="form-group row">
         <label for="price" class="col-md-2 col-form-label">Preis</label>
         <div class="col-md-10">
-            <input type="text" id="price" name="price" class="form-control col-sm-12 col-md-6 px-1" required />
+            <input type="number" id="price" name="price" class="form-control col-sm-12 col-md-6 px-1" required />
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="author_id" class="col-md-2 col-form-label">Author ID</label>
+        <label for="author_id" class="col-md-2 col-form-label">Fremdschlüssel (author_id)</label>
         <div class="col-md-10">
-            <input type="text" id="author_id" name="author_id" class="form-control col-sm-12 col-md-6 px-1" required />
+            <select name="author_id" id="author_id" class="col-sm-12 col-md-6 px-1" required>
+                <option value="">Bitte wählen</option>
+                <?php foreach ($authors as $author) : ?>
+                        <option value="<?php echo $author['id'] ?>"><?php echo $author['firstname'] . ' ' . $author['lastname']; ?></option>
+                <?php endforeach ?>
+            </select>
         </div>
     </div>
 

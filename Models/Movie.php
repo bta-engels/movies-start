@@ -7,12 +7,15 @@ class Movie extends Model
     protected $table = 'movies';
 
     public function insert(array $params) {
-        $sql = "INSERT INTO $this->table (title, price, author_id) VALUES (:title, :price, :author_id)";
+        $sql = "INSERT INTO $this->table (title, price, author_id)
+        VALUES (:title, :price, :author_id)";
         return $this->prepareAndExecute($sql, $params);
     }
 
     public function update(array $params, int $id) {
-        $sql = "UPDATE $this->table SET title = :title, price = :price WHERE id = :id";
+        $sql = "UPDATE $this->table
+        SET title=:title, price=:price
+        WHERE id=:id";
         $params['id'] = $id;
         return $this->prepareAndExecute($sql, $params);
     }

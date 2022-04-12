@@ -14,19 +14,18 @@
             <a class="nav-link" href="/authors">Autoren</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/movies">Movies</a>
+            <a class="nav-link" href="/movies">Filme</a>
         </li>
     </ul>
 
     <!-- Right Side Of Navbar -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <?php if($auth): ?>
-                <a class="nav-link" href="/logout">Logout <?php echo $auth['username']; ?></a>
+            <?php if ($auth): ?>
+                <a class="nav-link" href="/logout">Logout <?php echo $auth['username'] ?></a>
             <?php else: ?>
                 <a class="nav-link" href="/login">Login</a>
             <?php endif; ?>
-
         </li>
     </ul>
 </div>
