@@ -5,9 +5,12 @@ require_once('Models/Author.php');
 
 class AuthorController extends Controller implements IController
 {
+    //zweite Option, wenn Controller if Statement gesetzt dann
+    //Protected $model = Author::class; //hier wird klasse abgerufen
 
     public function __construct()
     {
+        parent::__construct();
         $this->model = new Author;
     }
 

@@ -5,6 +5,8 @@ require_once('Models/Movie.php');
 
 class MovieController extends Controller implements IController
 {
+
+
     public function index()
     {
         // @todo: get authors from db (use model)

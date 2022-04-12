@@ -2,9 +2,10 @@
 require_once 'inc/MyDB.php';
 
 class Model extends MyDB {
-    
+
+
     protected $table;
-    protected $model;
+
 
     public function all() {
         $sql = "SELECT * FROM $this->table ORDER BY id DESC";
@@ -23,8 +24,17 @@ class Model extends MyDB {
     }
 
     public function insert(array $params) {
-        $sql = "INSERT INTO $this->table () VALUES (:);
+        /*$keys = array_keys($params);
+        $cols = implode(',', $keys);
+
+        function placeholder($col) {
+        return ':' . $col;
+        }
+
+        $values = implode (",", array_map('placeholder', $keys));
+        $sql = "INSERT INTO $this->table ($cols) VALUES ($values)";
         return $this->prepareAndExecute($sql, $params);
+        */
     }
 
     public function update(array $params, int $id) {
