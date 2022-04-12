@@ -6,7 +6,8 @@ class Model extends MyDB {
     protected $table;
 
     public function all() {
-        $sql = "SELECT * FROM $this->table";
+        $sql = "SELECT * FROM $this->table
+        ORDER BY id";
         return $this->getAll($sql);
     }
 
